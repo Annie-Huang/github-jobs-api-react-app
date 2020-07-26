@@ -13,3 +13,8 @@ https://react-bootstrap.github.io/getting-started/introduction
 C:\react\github-jobs-api-react-app>npm install      << Prefer to use npm over yarn
 C:\react\github-jobs-api-react-app>npm i axios react-bootstrap
 C:\react\github-jobs-api-react-app>npm i react-markdown
+
+The current return from the api call with
+params: {markdown: true}
+is (for example):
+"how_to_apply": "\u003cp\u003e[Senior Python Developer] (\u003ca href=\"https://jobs.lever.co/bluevine/17ae9fff-deb7-4f61-b2cb-4507840e24bf?lever-origin=applied\u0026amp;lever-source%5B%5D=GitHub\"\u003ehttps://jobs.lever.co/bluevine/17ae9fff-deb7-4f61-b2cb-4507840e24bf?lever-origin=applied\u0026amp;lever-source%5B%5D=GitHub\u003c/a\u003e)\u003c/p\u003e\n",
