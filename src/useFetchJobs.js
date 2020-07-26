@@ -2,59 +2,59 @@ import {useEffect, useReducer} from "react";
 import axios from 'axios';
 
 const ACTIONS = {
-    MAKE_REQUEST: 'make-request',
-    GET_DATA: 'get-data',
-    ERROR: 'error'
+  MAKE_REQUEST: 'make-request',
+  GET_DATA: 'get-data',
+  ERROR: 'error'
 }
 
 // const BASE_ULR = 'https://jobs.github.com/positions.json';
 const BASE_ULR = 'https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json';
 
 function reducer(state, action) {
-    // e.g. if you have dispatch({type: 'hello', payload: {x:3}})
-    // then action.payload.x is 3.
+  // e.g. if you have dispatch({type: 'hello', payload: {x:3}})
+  // then action.payload.x is 3.
 
-    switch (action.type) {
-        case ACTIONS.MAKE_REQUEST:
-            return {loading: true, jobs: []}
-        case ACTIONS.GET_DATA:
-            return {...state, loading: false, jobs: action.payload.jobs}
-        case ACTIONS.ERROR:
-            return {...state, loading: false, jobs: [], error: action.payload.error}
-        default:
-            return state
-    }
+  switch (action.type) {
+    case ACTIONS.MAKE_REQUEST:
+      return {loading: true, jobs: []}
+    case ACTIONS.GET_DATA:
+      return {...state, loading: false, jobs: action.payload.jobs}
+    case ACTIONS.ERROR:
+      return {...state, loading: false, jobs: [], error: action.payload.error}
+    default:
+      return state
+  }
 }
 
 
 // params will be description, location, lat, long, full_time, etc
 export default function useFetchJobs(params, page) {
-    // useReducer{fn, <initialState>}
-    const [state, dispatch] = useReducer(reducer, {jobs: [], loading: true});
+  // useReducer{fn, <initialState>}
+  const [state, dispatch] = useReducer(reducer, {jobs: [], loading: true});
 
-    // Search params changes or page number changes
-    useEffect(() => {
-        const cancelToken = axios.CancelToken.source();
+  // Search params changes or page number changes
+  useEffect(() => {
+    const cancelToken = axios.CancelToken.source();
 
-        dispatch({type: ACTIONS.MAKE_REQUEST})
-        axios.get(BASE_ULR, {
-            cancelToken: cancelToken.token,
-            params: {markdown: true, page: page, ...params}
+    dispatch({type: ACTIONS.MAKE_REQUEST})
+    axios.get(BASE_ULR, {
+      cancelToken: cancelToken.token,
+      params: {markdown: true, page: page, ...params}
 
-        }).then(res => {
-            dispatch({type: ACTIONS.GET_DATA, payload: {jobs: res.data}})
+    }).then(res => {
+      dispatch({type: ACTIONS.GET_DATA, payload: {jobs: res.data}})
 
-        }).catch(e => {
-            // Whenever there is manual cancel on the axios call, it throws an error.
-            if (axios.isCancel(e)) return;
-            dispatch({type: ACTIONS.ERROR, payload: {error: e}})
-        });
+    }).catch(e => {
+      // Whenever there is manual cancel on the axios call, it throws an error.
+      if (axios.isCancel(e)) return;
+      dispatch({type: ACTIONS.ERROR, payload: {error: e}})
+    });
 
-        return () => {
-            cancelToken.cancel()
-        }
+    return () => {
+      cancelToken.cancel()
+    }
 
-    }, [params, page])
+  }, [params, page])
 
-    return state;
+  return state;
 }
