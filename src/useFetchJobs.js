@@ -1,4 +1,5 @@
 import {useEffect, useReducer} from "react";
+import axios from 'axios';
 
 const ACTIONS = {
     MAKE_REQUEST: 'make-request',
@@ -6,6 +7,7 @@ const ACTIONS = {
     ERROR: 'error'
 }
 
+const BASE_ULR = 'https://jobs.github.com/positions.json';
 
 function reducer(state, action) {
     // e.g. if you have dispatch({type: 'hello', payload: {x:3}})
@@ -23,6 +25,7 @@ function reducer(state, action) {
     }
 }
 
+// params will be description, location, lat, long, full_time, etc
 export default function useFetchJobs(params, page) {
     // useReducer{fn, <initialState>}
     const [state, dispatch] = useReducer(reducer, {jobs: [], loading: true});
@@ -30,6 +33,13 @@ export default function useFetchJobs(params, page) {
     // Search params changes or page number changes
     useEffect(() => {
         dispatch({type: ACTIONS.MAKE_REQUEST})
+        axios.get(BASE_ULR, {
+            params: {markdown: true, page: page, ...params}
+        }).then(res => {
+            dispatch({type: ACTIONS.GET_DATA, payload: {jobs: res.data}})
+        }).catch(e => {
+            dispatch({type: ACTIONS.ERROR, payload: {error: e}})
+        });
     }, [params, page])
 
     return {
