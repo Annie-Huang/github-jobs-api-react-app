@@ -42,9 +42,5 @@ export default function useFetchJobs(params, page) {
         });
     }, [params, page])
 
-    return {
-        jobs: [],
-        loading: false,
-        error: false
-    }
+    return state;
 }
