@@ -8,7 +8,8 @@ const ACTIONS = {
 }
 
 // const BASE_ULR = 'https://jobs.github.com/positions.json';
-const BASE_ULR = 'https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json';
+const BASE_ULR = '/positions.json';
+// const BASE_ULR = 'https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json';
 
 function reducer(state, action) {
   // e.g. if you have dispatch({type: 'hello', payload: {x:3}})
