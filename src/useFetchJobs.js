@@ -4,7 +4,8 @@ import axios from 'axios';
 const ACTIONS = {
   MAKE_REQUEST: 'make-request',
   GET_DATA: 'get-data',
-  ERROR: 'error'
+  ERROR: 'error',
+  UPDATE_HAS_NEXT_PAGE: 'update-has-next-page'
 }
 
 // const BASE_ULR = 'https://jobs.github.com/positions.json';
@@ -22,6 +23,8 @@ function reducer(state, action) {
       return {...state, loading: false, jobs: action.payload.jobs}
     case ACTIONS.ERROR:
       return {...state, loading: false, jobs: [], error: action.payload.error}
+    case ACTIONS.UPDATE_HAS_NEXT_PAGE:
+      return {...state, hasNextPage: action.payload.hasNextPage}
     default:
       return state
   }
@@ -38,6 +41,8 @@ export default function useFetchJobs(params, page) {
     const cancelToken = axios.CancelToken.source();
 
     dispatch({type: ACTIONS.MAKE_REQUEST})
+
+    // Make a axios call to fetch the current page data.
     axios.get(BASE_ULR, {
       cancelToken: cancelToken.token,
       params: {markdown: true, page: page, ...params}
@@ -50,6 +55,23 @@ export default function useFetchJobs(params, page) {
       if (axios.isCancel(e)) return;
       dispatch({type: ACTIONS.ERROR, payload: {error: e}})
     });
+
+
+
+    // Make another axios call to see if the next page exists
+    axios.get(BASE_ULR, {
+      cancelToken: cancelToken.token,
+      params: {markdown: true, page: page + 1, ...params}
+
+    }).then(res => {
+      dispatch({type: ACTIONS.UPDATE_HAS_NEXT_PAGE, payload: {hasNextPage: res.data.length !== 0}})
+
+    }).catch(e => {
+      // Whenever there is manual cancel on the axios call, it throws an error.
+      if (axios.isCancel(e)) return;
+      dispatch({type: ACTIONS.ERROR, payload: {error: e}})
+    });
+
 
     return () => {
       cancelToken.cancel()
