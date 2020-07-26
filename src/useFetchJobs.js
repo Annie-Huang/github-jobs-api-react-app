@@ -7,7 +7,8 @@ const ACTIONS = {
     ERROR: 'error'
 }
 
-const BASE_ULR = 'https://jobs.github.com/positions.json';
+// const BASE_ULR = 'https://jobs.github.com/positions.json';
+const BASE_ULR = 'https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json';
 
 function reducer(state, action) {
     // e.g. if you have dispatch({type: 'hello', payload: {x:3}})
@@ -24,6 +25,7 @@ function reducer(state, action) {
             return state
     }
 }
+
 
 // params will be description, location, lat, long, full_time, etc
 export default function useFetchJobs(params, page) {
