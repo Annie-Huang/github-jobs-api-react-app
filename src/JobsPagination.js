@@ -9,7 +9,7 @@ import {Pagination} from "react-bootstrap";
    If page is 3: it will show prev, 1, ..., 2, 3, 4, next
    If page is 4: it will show prev, 1, ..., 3, 4, 5, next
  */
-const JobsPagination = ({page, setPage}) => {
+const JobsPagination = ({page, setPage, hasNextPage}) => {
   return (
     <Pagination>
       {page !== 1 && <Pagination.Prev /> }
@@ -17,8 +17,8 @@ const JobsPagination = ({page, setPage}) => {
       {page > 2 && <Pagination.Ellipsis /> }
       {page > 2 && <Pagination.Item>{page - 1}</Pagination.Item> }
       <Pagination.Item active>{page}</Pagination.Item>
-      <Pagination.Item>{page + 1}</Pagination.Item>
-      <Pagination.Next />
+      {hasNextPage && <Pagination.Item>{page + 1}</Pagination.Item> }
+      {hasNextPage && <Pagination.Next /> }
     </Pagination>
   );
 };
