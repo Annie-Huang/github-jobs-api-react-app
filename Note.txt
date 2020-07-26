@@ -4,6 +4,8 @@ https://www.youtube.com/watch?v=fxY1q4SCB64&t=80s
 https://github.com/WebDevSimplified/GitHub-Jobs-API-React-App
 https://github.com/Annie-Huang/github-jobs-api-react-app
 
+https://jobs.github.com/api
+
 =============================================================
 
 C:\react\github-jobs-api-react-app>npm install      << Prefer to use npm over yarn
