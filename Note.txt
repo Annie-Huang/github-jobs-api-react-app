@@ -12,5 +12,4 @@ https://react-bootstrap.github.io/getting-started/introduction
 
 C:\react\github-jobs-api-react-app>npm install      << Prefer to use npm over yarn
 C:\react\github-jobs-api-react-app>npm i axios react-bootstrap
-
-
+C:\react\github-jobs-api-react-app>npm i react-markdown
