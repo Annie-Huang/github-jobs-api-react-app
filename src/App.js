@@ -11,8 +11,9 @@ function App() {
   const {jobs, loading, error, hasNextPage} = useFetchJobs(params, page);
 
   function handleParamChange(e) {
-    const param = e.target.name;
-    const value = e.target.value;
+    const params = e.target.name;
+    // const value = e.target.value;
+    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value
     setPage(1);
     setParams(prevParams => ({...prevParams, [params]: value}))
   }

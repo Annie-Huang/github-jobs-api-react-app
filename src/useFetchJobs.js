@@ -11,6 +11,7 @@ const ACTIONS = {
 // const BASE_ULR = 'https://jobs.github.com/positions.json';
 const BASE_ULR = '/positions.json';
 // const BASE_ULR = 'https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json';
+// const BASE_ULR = 'https://api.allorigins.win/raw?url=https://jobs.github.com/positions.json';  // Another URL will work according to youtube comment
 
 function reducer(state, action) {
   // e.g. if you have dispatch({type: 'hello', payload: {x:3}})
