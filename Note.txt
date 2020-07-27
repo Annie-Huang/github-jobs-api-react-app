@@ -8,6 +8,7 @@ https://jobs.github.com/api
 https://cors-anywhere.herokuapp.com/
 https://react-bootstrap.github.io/getting-started/introduction
 https://react-bootstrap.github.io/components/pagination/
+https://react-bootstrap.github.io/components/forms/
 =============================================================
 
 C:\react\github-jobs-api-react-app>npm install      << Prefer to use npm over yarn

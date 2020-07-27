@@ -14,9 +14,7 @@ function App() {
     const param = e.target.name;
     const value = e.target.value;
     setPage(1);
-    setParams(prevParams => {
-      return {...prevParams, [params]: value};
-    })
+    setParams(prevParams => ({...prevParams, [params]: value}))
   }
 
   return (
